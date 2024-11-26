@@ -1,0 +1,17 @@
+#######################################
+# Syntax Coloring Map For SimpleEmail
+#######################################
+#######################################
+# Library (KEYWORD3)
+#######################################
+#######################################
+# Datatypes (KEYWORD1)
+#######################################
+SimpleEmail   KEYWORD1
+#######################################
+# Methods and Functions (KEYWORD2)
+#######################################
+begin   KEYWORD2
+Generic_Mail_Client  KEYWORD2
+smtpCallback  KEYWORD2
+
