@@ -2,6 +2,7 @@
  * SimpleEmail.cpp library to send a simple email using gmail account
  * Created by Sachi Gerlitz
  * 
+ * 27-XI-2024  ver 1.0    [add <PrintEmailEnvalop>]
  * 25-XI-2024  ver 1.0    [baseline to replace WifiMail.cpp]
  *
  * constructor:     SimpleEmail
