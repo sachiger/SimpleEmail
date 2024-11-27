@@ -232,6 +232,57 @@
     return  _E;
   } //  end of Generic_Mail_Client
 
+  //****************************************************************************************/
+    void SimpleEmail::PrintEmailEnvalop(ManageEmail _E, TimePack _SysEClock, char* Subject, char* Body, bool DoPrint, bool details){
+      /*
+      * method to debug print all email parameters
+      * _E             - email management structure
+      * _SysEClock     - system's clock stucture
+      * Subject        - email's subject buffer
+      * Body           - email's body buffer
+      * DoPrint        - if 1  - print
+      *                - if 0  - skip
+      * details        - if 1  - print all
+      *                - if 0  - skip passcode
+      * _E.specialMessage - (const) buffer to print as a header - print as a header if not nullptr
+      */
+      static const char Mname[] PROGMEM = "PrintEmailEnvalop:";
+      if (!DoPrint) return;
+
+      Serial.print(F("******************************************************************\n"));
+      _RunEUtil.InfoStamp(_SysEClock,Mname,nullptr,1,0);     
+      Serial.print(F("\n\tSimulation status=")); 
+      if ( _E.DontSendEmail ) Serial.print(F("Simulation active\t"));
+      else                    Serial.print(F("Email active\t"));
+      
+      if ( _E.SpecialMessageBuffer != nullptr) { Serial.print(_E.SpecialMessageBuffer); Serial.print(F("\n\t")); }  // optional print of a special message i(if provided)
+      Serial.print(F("from:\t")); Serial.print(_E.FromEmailName); Serial.print(F(" <")); Serial.print(_E.FromEmailEmail); 
+      if ( details ) {
+        Serial.print(F("> code:[")); 
+        Serial.print(_E.LogInPasscode); Serial.print(F("] [")); Serial.print(_E.SimpleEmailHost); Serial.print(F("] [")); Serial.print(_E.SimpleEmailHostPort); 
+        Serial.print(F("] number of addresses: "));
+      } else { Serial.print(F("> number of addresses: ")); }
+      Serial.print(_E.HowManyEmailAddresses);
+      if ( _E.HowManyEmailAddresses > 0 ) {
+        Serial.print(F("\n\tTO recipient:\t")); Serial.print(_E.ToEmailName); Serial.print(F(" <")); Serial.print(_E.ToEmailEmail); Serial.print(F(">\n"));
+      }
+      if ( _E.HowManyEmailAddresses > 1 ) {
+        Serial.print(F("\tTO1 recipient:\t")); Serial.print(_E.To1EmailName); Serial.print(F(" <")); Serial.print(_E.To1EmailEmail); Serial.print(F(">\n"));
+      }
+      if ( _E.HowManyEmailAddresses > 2 ) { Serial.print(F("\tCC recipient:\t<")); Serial.print(_E.CC1EmailEmail); Serial.print(F(">\n")); }
+      
+      if ( Subject==nullptr ) Serial.print(F("\tSubject not provided!"));
+      else                    {Serial.print(F("\tSubject:\t")); Serial.print(Subject);}
+      if ( Body==nullptr )  {Serial.print(F("\n\tBody not provided!\n"));}
+      else                  {
+        _RunEUtil.PrintEmailBuf(Body);
+        Serial.print(F("\n\tBuffer len = ")); Serial.print(strlen(Body));
+      }
+      Serial.print(F("\tFree Heap = ")); Serial.print(String(ESP.getFreeHeap(),DEC).c_str());
+      Serial.print(F(" -END\n"));
+      Serial.print(F("******************************************************************\n"));
+  }   // end of PrintEmailEnvalop
+
   /****************************************************************************************/
 
 #elif   SWVersion==3                // Skinny library

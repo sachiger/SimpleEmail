@@ -3,7 +3,8 @@
  * for methods to send emails using Gmail
  * Created by Sachi Gerlitz
  * 
- * 24-XI-2024  ver 1.0    [baseline]
+ * 27-XI-2024  ver 1.0    [add <PrintEmailEnvalop>]
+ * 25-XI-2024  ver 1.0    [baseline]
  *
  */
 #ifndef SimpleEmail_h
@@ -17,7 +18,7 @@
     #define _LOGGME     1
   #endif  //_LOGGME
   #ifndef _DEBUGON_Email                // endable debug prints
-    #define _DEBUGON_Email    1
+    #define _DEBUGON_Email    11
   #endif  //_DEBUGON_Email
 
   struct ManageEmail {
@@ -40,7 +41,8 @@
     const char*   To1EmailName;           // name to display as TO1 adressee
     const char*   To1EmailEmail;          // Email of TO1 addressee
     const char*   CC1EmailEmail;          // Email of CC1 addressee
-    char    SpecialMessageBuffer[50];     // buffer for event message
+    const char*   SpecialMessageBuffer;   // pointer for event message
+    //char    SpecialMessageBuffer[50];     // buffer for event message
   };
 
   
@@ -58,6 +60,7 @@
               const char* ToNameInit, const char* ToEmailInit, const char* ToName1Init,  const char* To1EmailInit, const char* CC1EmailInit);
         ManageEmail Generic_Mail_Client(ManageEmail E, TimePack _SysEClock, char* messageSubject, char* messageBody, 
                 uint8_t debugOpt, bool setLocalTime);
+        void    PrintEmailEnvalop(ManageEmail _E, TimePack _SysEClock, char* Subject, char* Body, bool DoPrint, bool details);
         //ManageEmail ValidateEmailRecipient(ManageEmail E);
         //void PrintEmailEnvalop(ManageEmail _E,TimePack _SysEClock, char* Subject, char* Body, bool DoPrint, const char* specialMessage=nullptr);
       private:
