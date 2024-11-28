@@ -1,6 +1,6 @@
 {
     "name": "SimpleEmail",
-    "version": "1.0.0",
+    "version": "1.0.1",
     "description": "A library for sending emails using ESP_Mail_Client for ESP8266 platform",
     "keywords": ["email", "esp8266", "smtp", "wifi"],
     "repository":
